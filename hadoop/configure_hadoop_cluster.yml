@@ -1,0 +1,18 @@
+---
+
+- hosts: master
+  gather_facts: no
+  become: yes
+  become_user: root
+  roles:
+          - role: configure_namenode
+
+
+- hosts: slave
+  gather_facts: no
+  become: yes
+  become_user: root
+  roles:
+          - role: configure_datanode
+
+

@@ -1,0 +1,17 @@
+---
+# vars file for configure_datanode
+
+java_url: http://83.103.170.157/apps/java/jdk_1.8/jdk/jdk-8u202-linux-x64.rpm
+hadoop_url: https://archive.apache.org/dist/hadoop/core/hadoop-1.2.1/hadoop-1.2.1-1.x86_64.rpm
+
+install_java: rpm -ivh /root/jdk-8u202-linux-x64.rpm --force
+install_hadoop: rpm -ivh /root/hadoop-1.2.1-1.x86_64.rpm --force
+
+jps_process: jps
+
+namenode_core_url: https://raw.githubusercontent.com/i-adarsh/Hadoop-Automation-Using-Ansible/main/namenode/core-site.xml
+datanode_hdfs_url: https://raw.githubusercontent.com/i-adarsh/Hadoop-Automation-Using-Ansible/main/datanode/hdfs-site.xml
+datanode_delete_directory: rm -rf /datanode
+datanode_directory_path: /datanode
+datanode_stop: hadoop-daemon.sh stop datanode
+datanode_start: hadoop-daemon.sh start datanode

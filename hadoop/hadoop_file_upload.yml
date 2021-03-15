@@ -1,0 +1,7 @@
+---
+- hosts: slave
+  gather_facts: no
+  become: yes
+  become_user: root
+  roles:
+          - role: hadoop_file_upload

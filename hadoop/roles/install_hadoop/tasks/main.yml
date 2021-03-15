@@ -1,0 +1,31 @@
+---
+# tasks file for install_hadoop
+- name: Downloading JDK File
+  get_url:
+          url: "{{ java_url }}"
+          dest: "/root/"
+
+- name: Downloading Hadoop RPM
+  get_url:
+          url: "{{ hadoop_url }}"
+          dest: "/root/"
+
+- name: Installing Java
+  shell: "{{ install_java }}"
+  register: Java
+  ignore_errors: yes
+
+- name: Java Installation Status
+  debug:
+          var: Java.stdout
+
+
+- name: Installing Hadoop
+  shell: "{{ install_hadoop }}"
+  register: hadoop
+  ignore_errors: yes
+
+- name: Hadoop Installation Status
+  debug:
+          var: hadoop.stdout
+

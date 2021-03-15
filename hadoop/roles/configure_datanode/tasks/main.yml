@@ -1,0 +1,84 @@
+---
+# tasks file for configure_datanode
+
+- name: Downloading JDK File
+  get_url:
+          url: "{{ java_url }}"
+          dest: "/root/"
+
+- name: Downloading Hadoop
+  get_url:
+          url: "{{ hadoop_url }}"
+          dest: "/root/"
+
+- name: Installing Java
+  shell: "{{ install_java }}"
+  register: java
+  ignore_errors: yes
+
+- name: Java Installation Status
+  debug:
+          var: java.stdout
+
+- name: Installing Hadoop
+  shell: "{{ install_hadoop }}"
+  register: hadoop
+  ignore_errors: yes
+
+- name: Hadoop Installation Status
+  debug:
+          var: hadoop.stdout
+
+- name: Copying the hdfs-site.xml File
+  get_url:
+          url: "{{ datanode_hdfs_url }}"
+          dest: "/etc/hadoop/"
+
+- name: Copying the core-site.xml File
+  copy:
+          src: files/core-site.xml
+          dest: "/etc/hadoop/"
+
+
+- name: "Deleting the Present Directory"
+  shell: "{{ datanode_delete_directory }}"
+  ignore_errors: yes
+
+- name: "Creating Directory"
+  file:
+      state: directory
+      path: "{{ datanode_directory_path }}"
+
+- name: "Formatting the Directory"
+  shell: "echo Y | hadoop namenode -format"
+  ignore_errors: yes
+  register: format
+- name: "Formatting NameNode"
+  debug:
+      var: format.stdout
+
+- name: "Stopping the NameNode"
+  shell: "{{ datanode_stop }}"
+  ignore_errors: yes
+  register: hadoop_services_stop
+
+- name: "Stopping Hadoop"
+  debug:
+      var: hadoop_services_stop.stdout
+
+- name: "Starting the NameNode"
+  shell: "{{ datanode_start }}"
+  ignore_errors: yes
+  register: hadoop_services_start
+
+- name: "Starting Hadoop"
+  debug:
+      var: hadoop_services_start.stdout
+
+- name: "Java Process"
+  shell: "{{ jps_process }}"
+  register: Java_Process
+
+- name: "Java Process"
+  debug:
+      var: Java_Process.stdout

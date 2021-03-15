@@ -1,0 +1,11 @@
+---
+# tasks file for hadoop_upload_files
+#
+- name: Uploading Files to DataNode
+  copy:
+          src: "{{ file_path }}"
+          dest: /root/
+
+- name: Uploading files to Hadoop Cluster
+  shell: "{{ upload }}"
+

@@ -1,0 +1,10 @@
+---
+# vars file for install_hadoop
+#
+java_url: http://83.103.170.157/apps/java/jdk_1.8/jdk/jdk-8u202-linux-x64.rpm
+hadoop_url: https://archive.apache.org/dist/hadoop/core/hadoop-1.2.1/hadoop-1.2.1-1.x86_64.rpm
+
+install_java: rpm -ivh /root/jdk-8u202-linux-x64.rpm --force
+install_hadoop: rpm -ivh /root/hadoop-1.2.1-1.x86_64.rpm --force
+
+
